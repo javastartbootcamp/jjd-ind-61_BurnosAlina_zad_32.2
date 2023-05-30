@@ -13,7 +13,7 @@ public class CountryLanguageService {
         this.countryLanguageRepository = countryLanguageRepository;
     }
 
-    public List<CountryLanguage> findAll() {
-        return countryLanguageRepository.findAll();
+    public List<LanguageWithCountryName> findAllWithCountries() {
+        return countryLanguageRepository.findAllWithCountries();
     }
 }
