@@ -6,12 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import pl.javastart.jpaoptimalization.country.Country;
 import pl.javastart.jpaoptimalization.country.CountryService;
 import pl.javastart.jpaoptimalization.countrylanguage.CountryLanguageService;
-import pl.javastart.jpaoptimalization.countrylanguage.LanguageWithCountryName;
 
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
@@ -44,13 +41,9 @@ public class MainController {
 
     @GetMapping("/jezyki-i-kraje")
     public String languagesWithCountries(Model model) {
-        List<LanguageWithCountryName> languages = countryLanguageService.findAllWithCountries();
-        Map<String, List<String>> languageMap = languages.stream()
-                .collect(Collectors.groupingBy(LanguageWithCountryName::getLanguage,
-                        TreeMap::new,
-                        Collectors.mapping(LanguageWithCountryName::getCountryName, Collectors.toList())));
+        Map<String, List<String>> languages = countryLanguageService.findAllWithCountries();
 
-        model.addAttribute("languages", languageMap);
+        model.addAttribute("languages", languages);
 
         return "languagesWithCountries";
     }
